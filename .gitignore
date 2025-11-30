@@ -1,0 +1,35 @@
+# --- ENTORNO VIRTUAL ---
+venv/
+.env/
+.venv/
+
+# --- ARCHIVOS DE PYTHON ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- ARCHIVOS DE DJANGO ---
+db.sqlite3
+*.log
+
+# --- MIGRATIONS ---
+**/migrations/**/__pycache__/
+
+# --- ARCHIVOS DE EDITORES ---
+# VSCode
+.vscode/
+
+# PyCharm
+.idea/
+
+# --- ARCHIVOS DEL SISTEMA ---
+.DS_Store
+Thumbs.db
+
+# --- ARCHIVOS DE COMPILACIÓN ---
+build/
+dist/
+*.egg-info/
+
+# --- ARCHIVOS TEMPORALES ---
+*~
