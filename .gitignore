@@ -1,6 +1,7 @@
 # --- ENTORNO VIRTUAL ---
 venv/
 .env/
+.env
 .venv/
 
 # --- ARCHIVOS DE PYTHON ---
