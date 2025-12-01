@@ -13,9 +13,120 @@
       body {
         background-color: #f5f5f5;
       }
+
       .card {
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin-top: 2rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
         margin-bottom: 1rem;
-      }
+    }
+
+    .card-header h2 {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .card-header small {
+        color: #777;
+        font-size: 0.85rem;
+    }
+
+    .table-container {
+        max-height: 420px; /* scroll vertical si hay muchos procesos */
+        overflow-y: auto;
+        border-radius: 8px;
+        border: 1px solid #eee;
+    }
+
+    table.process-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+    }
+
+    .process-table thead {
+        background: #f8f9fa;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .process-table th,
+    .process-table td {
+        padding: 0.55rem 0.75rem;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .process-table th {
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: #555;
+        border-bottom: 1px solid #e2e2e2;
+    }
+
+    .process-table tbody tr:nth-child(even) {
+        background-color: #fcfcfc;
+    }
+
+    .process-table tbody tr:hover {
+        background-color: #f1f5ff;
+    }
+
+    .pid-cell {
+        font-family: monospace;
+        font-size: 0.85rem;
+        color: #555;
+    }
+
+    .name-cell {
+        font-weight: 500;
+    }
+
+    .user-cell {
+        font-size: 0.8rem;
+        color: #666;
+    }
+
+    .metric {
+        min-width: 120px;
+    }
+
+    .metric-value {
+        font-size: 0.8rem;
+        display: inline-block;
+        margin-bottom: 0.1rem;
+    }
+
+    .metric-bar {
+        width: 100%;
+        height: 6px;
+        border-radius: 999px;
+        background: #e9ecef;
+        overflow: hidden;
+    }
+
+    .metric-bar-fill {
+        height: 100%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #4dabf7, #228be6);
+        transition: width 0.3s ease;
+    }
+
+    .text-muted {
+        color: #888;
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
     </style>
 </head>
 <body>
@@ -99,6 +210,65 @@
     <p class="text-muted mt-3">
       Esta página se actualiza automáticamente cada 5 segundos.
     </p>
+    <div class="card">
+      <div class="card-header">
+        <h2>Procesos</h2>
+        <small>Actualizado en tiempo real desde <code>psutil</code></small>
+      </div>
+    
+      <p class="text-muted">
+        Se muestran los 20 procesos con mayor uso de CPU en este momento.
+      </p>
+    
+      <div class="table-container">
+        <table class="process-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>PID</th>
+              <th>Nombre</th>
+              <th>Usuario</th>
+              <th>CPU (%)</th>
+              <th>Memoria (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in procesos %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td class="pid-cell">{{ p.pid }}</td>
+              <td class="name-cell">{{ p.name }}</td>
+              <td class="user-cell">{{ p.username }}</td>
+              <td>
+                <div class="metric">
+                  <span class="metric-value">
+                    {{ p.cpu_percent|floatformat:1 }}%
+                  </span>
+                  <div class="metric-bar">
+                    <div class="metric-bar-fill" style="width: {{ p.cpu_percent }}%;"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="metric">
+                  <span class="metric-value">
+                    {{ p.memory_percent|floatformat:1 }}%
+                  </span>
+                  <div class="metric-bar">
+                    <div class="metric-bar-fill" style="width: {{ p.memory_percent }}%;"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="6">No se encontraron procesos.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
 </div>
 
 <script>
