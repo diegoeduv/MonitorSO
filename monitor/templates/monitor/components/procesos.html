@@ -1,0 +1,26 @@
+<div class="card mt-4">
+    <div class="card-header">
+        <h2>Procesos</h2>
+        <small>Actualizado en tiempo real desde <code>psutil</code></small>
+    </div>
+
+    <p class="text-muted">
+        Se muestran los 20 procesos con mayor uso de CPU en este momento.
+    </p>
+
+    <div class="table-container">
+        <table class="process-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>PID</th>
+                    <th>Nombre</th>
+                    <th>Usuario</th>
+                    <th>CPU (%)</th>
+                    <th>Memoria (%)</th>
+                </tr>
+            </thead>
+            <tbody id="process_body"></tbody>
+        </table>
+    </div>
+</div>

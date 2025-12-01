@@ -1,0 +1,24 @@
+{% load filters %}  
+<div class="col-md-3">
+    <div class="card">
+        <div class="card-header">Memoria RAM</div>
+        <div class="card-body">
+            <h5 id="mem_val">{{ mem_percent }}%</h5>
+
+            <p class="card-text">
+                Usada: <span id="mem_used">{{ mem_used|to_gb }}</span><br>
+                Total: {{ mem_total|to_gb }}
+            </p>
+
+            <div class="progress">
+                <div id="mem-bar" class="progress-bar"
+                     role="progressbar"
+                     style="width: {{ mem_percent }}%;"
+                     aria-valuenow="{{ mem_percent }}"
+                     aria-valuemin="0"
+                     aria-valuemax="100">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

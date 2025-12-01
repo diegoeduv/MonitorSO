@@ -1,0 +1,17 @@
+<div class="col-md-3">
+    <div class="card">
+        <div class="card-header">CPU</div>
+        <div class="card-body">
+            <h5 id="cpu_val">{{ cpu_percent }}%</h5>
+            <div class="progress">
+                <div id="cpu-bar" class="progress-bar"
+                     role="progressbar"
+                     style="width: {{ cpu_percent }}%;"
+                     aria-valuenow="{{ cpu_percent }}"
+                     aria-valuemin="0"
+                     aria-valuemax="100">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

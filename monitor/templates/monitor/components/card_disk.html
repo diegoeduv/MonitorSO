@@ -1,0 +1,24 @@
+{% load filters %}  
+<div class="col-md-3">
+    <div class="card">
+        <div class="card-header">Disco raíz (/)</div>
+        <div class="card-body">
+            <h5 id="disk_val">{{ disk_percent }}%</h5>
+
+            <p class="card-text">
+                Usado: <span id="disk_used">{{ disk_used|to_gb }}</span><br>
+                Total: {{ disk_total|to_gb }}
+            </p>
+
+            <div class="progress">
+                <div id="disk-bar" class="progress-bar"
+                     role="progressbar"
+                     style="width: {{ disk_percent }}%;"
+                     aria-valuenow="{{ disk_percent }}"
+                     aria-valuemin="0"
+                     aria-valuemax="100">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

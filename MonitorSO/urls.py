@@ -16,9 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from monitor.views import dashboard
+from monitor.views import dashboard, api_stats, process_stats, api_specs, api_sensors, api_network, api_gpu
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', dashboard, name='dashboard'),
+    path('api/stats/', api_stats, name='api_stats'),
+    path('api/processes/', process_stats, name='process_stats'),
+    path("api/specs/", api_specs, name="api_specs"),
+    path("api/sensors/", api_sensors, name="api_sensors"),
+    path("api/network/", api_network, name="api_network"),
+    path("api/gpu/", api_gpu, name="api_gpu"),
+
 ]
