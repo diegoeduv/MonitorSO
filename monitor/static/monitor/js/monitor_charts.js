@@ -1,24 +1,26 @@
-// ================== CHARTS CONFIG =================== //
+// Charts de uso del sistema: inicialización de gráficos (CPU, Memoria, Disco)
 
 const cpuCtx = document.getElementById('chart_cpu').getContext('2d');
 const memCtx = document.getElementById('chart_mem').getContext('2d');
 const diskCtx = document.getElementById('chart_disk').getContext('2d');
 
+// Gráfico de CPU
 const chartCPU = new Chart(cpuCtx, {
     type: 'line',
     data: {
-        labels: [],
+        labels: [], // Tiempos de muestreo
         datasets: [{
             label: 'CPU (%)',
-            data: [],
+            data: [], // Valores de CPU
             borderWidth: 2,
             fill: false,
-            tension: 0.3
+            tension: 0.3 // Suavizado de la línea
         }]
     },
     options: { scales: { y: { beginAtZero: true, max: 100 } } }
 });
 
+// Gráfico de Memoria
 const chartMEM = new Chart(memCtx, {
     type: 'line',
     data: {
@@ -34,6 +36,7 @@ const chartMEM = new Chart(memCtx, {
     options: { scales: { y: { beginAtZero: true, max: 100 } } }
 });
 
+// Gráfico de Disco
 const chartDISK = new Chart(diskCtx, {
     type: 'line',
     data: {
@@ -50,13 +53,13 @@ const chartDISK = new Chart(diskCtx, {
 });
 
 
-// ================== FUNCION DE ACTUALIZAR CHARTS =================== //
 
+// Función para actualizar los gráficos en tiempo real
 function updateCharts(cpu, mem, disk) {
 
-    const time = new Date().toLocaleTimeString();
+    const time = new Date().toLocaleTimeString(); // Etiqueta de tiempo
 
-    // CPU
+    // CPU: agrega dato y mantiene máximo 20 puntos
     chartCPU.data.labels.push(time);
     chartCPU.data.datasets[0].data.push(cpu);
     if (chartCPU.data.labels.length > 20) {

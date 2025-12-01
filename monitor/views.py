@@ -171,6 +171,13 @@ def api_specs(request):
     g = gpu_exists()
     cpu_freq = psutil.cpu_freq()
 
+    # RAM y SWAP
+    ram = psutil.virtual_memory()
+    swap = psutil.swap_memory()
+
+    # Disco principal
+    disk = psutil.disk_usage("/")
+
     return JsonResponse({
         "os": platform.system(),
         "os_version": platform.version(),
@@ -188,7 +195,15 @@ def api_specs(request):
         "gpu_exists": g["exists"],
         "gpu_vendor": g["vendor"],
         "gpu_name": g["model"],
+
+        # NUEVO → RAM / SWAP
+        "ram_total": ram.total,
+        "swap_total": swap.total,
+
+        # NUEVO → DISCO
+        "disk_total": disk.total,
     })
+
 
 
 # Devuelve temperaturas de CPU y GPU

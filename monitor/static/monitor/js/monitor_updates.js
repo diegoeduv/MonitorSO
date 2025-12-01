@@ -1,18 +1,16 @@
-// ============== FUNCIONES UTILIDADES ============== //
-
+// Funciones utilitarias: conversión y formato
 function toGB(bytes) {
-    return (bytes / (1024 ** 3)).toFixed(2) + " GB";
+    return (bytes / (1024 ** 3)).toFixed(2) + " GB"; // Convierte bytes a GB con 2 decimales
 }
 
 function formatSpeed(bytes) {
-    if (bytes < 1024) return bytes.toFixed(0) + " B/s";
-    if (bytes < 1024 ** 2) return (bytes / 1024).toFixed(1) + " KB/s";
-    return (bytes / 1024 / 1024).toFixed(1) + " MB/s";
+    if (bytes < 1024) return bytes.toFixed(0) + " B/s"; // Bytes por segundo
+    if (bytes < 1024 ** 2) return (bytes / 1024).toFixed(1) + " KB/s"; // KB/s
+    return (bytes / 1024 / 1024).toFixed(1) + " MB/s"; // MB/s
 }
 
 
-// ============== ESTADISTICAS (CPU/MEM/DISKO) ============== //
-
+// Estadísticas del sistema: CPU, memoria y disco
 async function updateStats() {
     const res = await fetch("/api/stats/");
     const data = await res.json();
@@ -23,7 +21,6 @@ async function updateStats() {
 
     // Memoria
     document.getElementById("mem_val").innerText = data.mem_percent + "%";
-    document.getElementById("mem_bar");
     document.getElementById("mem-bar").style.width = data.mem_percent + "%";
     document.getElementById("mem_used").innerText = toGB(data.mem_used);
 
@@ -32,15 +29,15 @@ async function updateStats() {
     document.getElementById("disk-bar").style.width = data.disk_percent + "%";
     document.getElementById("disk_used").innerText = toGB(data.disk_used);
 
-    // Update charts
+    // Actualiza gráficos en tiempo real
     updateCharts(data.cpu_percent, data.mem_percent, data.disk_percent);
 }
 
-setInterval(updateStats, 2000);
+setInterval(updateStats, 2000); // Actualización periódica
 
 
-// ============== PROCESOS ============== //
 
+// Procesos activos: lista y consumo
 async function updateProcesses() {
     const res = await fetch("/api/processes/");
     const data = await res.json();
@@ -77,11 +74,11 @@ async function updateProcesses() {
     });
 }
 
-setInterval(updateProcesses, 2000);
+setInterval(updateProcesses, 2000); // Refresca la tabla de procesos
 
 
-// ============== SENSORES (TEMPERATURAS) ============== //
 
+// Sensores: temperaturas CPU/GPU
 async function updateSensors() {
     const res = await fetch("/api/sensors/");
     const data = await res.json();
@@ -96,8 +93,8 @@ async function updateSensors() {
 setInterval(updateSensors, 2000);
 
 
-// ============== RED ============== //
 
+// Red: velocidad de subida y bajada
 async function updateNetwork() {
     const res = await fetch("/api/network/");
     const data = await res.json();
@@ -109,8 +106,8 @@ async function updateNetwork() {
 setInterval(updateNetwork, 2000);
 
 
-// ============== GPU ============== //
 
+// GPU: uso, memoria y estado
 async function updateGPU() {
     const res = await fetch("/api/gpu/");
     const data = await res.json();
@@ -139,13 +136,13 @@ async function updateGPU() {
 setInterval(updateGPU, 2000);
 
 
-// ============== ESPECIFICACIONES ============== //
 
+// Carga las especificaciones del sistema
 async function loadSpecs() {
     const res = await fetch("/api/specs/");
     const data = await res.json();
 
-    // Sistema
+    // Sistema operativo y hardware
     document.getElementById("spec_os").innerText = data.os;
     document.getElementById("spec_os_version").innerText = data.os_version;
     document.getElementById("spec_hostname").innerText = data.hostname;
@@ -175,4 +172,4 @@ async function loadSpecs() {
     }
 }
 
-loadSpecs();
+loadSpecs(); // Inicializa la carga de especificaciones
