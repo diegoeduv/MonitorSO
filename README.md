@@ -9,7 +9,7 @@ Dashboard de monitorización del sistema operativo desarrollado en Django. La ap
 - Actividad de red (velocidad de transferencia)
 - Gráficas en tiempo real con Chart.js
 - Listado de procesos (más pesados)
-- Actualizaciones dinámicas cada 2 segundos mediante `fetch`
+- Actualizaciones dinámicas cada 2 segundos mediante `fetch`    
 - Interfaz modularizada en componentes HTML, CSS y JavaScript
 
 ## Estructura del proyecto
@@ -106,7 +106,7 @@ La aplicación utiliza Django para renderizar las vistas y JavaScript (Fetch API
 - Temperaturas de sensores
 - Lista de procesos ordenada por uso de recursos
 
-## Endpoints (recomendados)
+## Endpoints
 
 | Endpoint | Descripción |
 |---|---|
@@ -117,7 +117,7 @@ La aplicación utiliza Django para renderizar las vistas y JavaScript (Fetch API
 | `/api/network/` | Velocidad/estadísticas de red |
 | `/api/gpu/` | Estado y métricas de GPU |
 
-Todos los endpoints deberían devolver JSON.
+Todos los endpoints devuelven JSON.
 
 Ejemplo de respuesta para `/api/stats/`:
 
@@ -144,7 +144,7 @@ Ejemplo de inclusión en `dashboard.html`:
 
 ## Filtros personalizados
 
-La aplicación incluye un filtro `to_gb` en `monitor/templatetags/filters.py`. Úsalo así:
+La aplicación incluye un filtro `to_gb` en `monitor/templatetags/filters.py`:
 
 ```django
 {{ mem_total|to_gb }}
@@ -158,8 +158,3 @@ La aplicación incluye un filtro `to_gb` en `monitor/templatetags/filters.py`. �
 - Chart.js
 - Bootstrap
 - Fetch API
-
-## Notas
-
-- Ajusta y crea los endpoints API según la implementación del backend en `monitor/views.py` o un módulo `api.py` si lo prefieres.
-- Para soporte de GPU instala las librerías opcionales según tu hardware.
